@@ -1,9 +1,6 @@
-name: 'build' 
-on: # rebuild any PRs and main branch changes
-  pull_request:
-  push:
-    branches:
-      - master
+name: 'build'
+on: 
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   build:
@@ -22,3 +19,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: cv
+          path: cv.pdf # Specify the file path to the generated PDF
