@@ -109,8 +109,8 @@
 }
 
 % Entry start and end, for spacing
-\newcommand{\resumeEntryStart}{\begin{itemize}[leftmargin=2.5mm]}
-\newcommand{\resumeEntryEnd}{\end{itemize}\vspace{\entryspacing}}
+\newcommand{\resumeEntryStart}{\vspace{0.5\baselineskip}\begin{minipage}{\textwidth}\begin{itemize}[leftmargin=2.5mm]}
+\newcommand{\resumeEntryEnd}{\end{itemize}\end{minipage}\vspace{1\baselineskip}}
 
 % Itemized list for the bullet points under an entry, if necessary
 \newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=4.5mm]}
@@ -223,11 +223,11 @@
           \email \\
           \github \\
           \linkedin \\
-
        \end{tabular}
   \end{flushright}
 \end{multicols}
 \vspace{1cm}
+
 %-------------------------------------------------- EXPERIENCE --------------------------------------------------
 \section{\faBusinessTime}{Experience}
 
