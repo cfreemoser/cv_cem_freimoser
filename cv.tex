@@ -1,0 +1,316 @@
+%-------------------------------------
+% LaTeX Resume for Software Engineers
+% Author : Cem Freimoser
+% Credits to : Leslie Cheng
+% License : MIT
+%-------------------------------------
+
+\documentclass[letterpaper,12pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage{enumitem}
+\usepackage{ifxetex}
+\ifxetex
+  \usepackage{fontspec}
+  \usepackage[xetex]{hyperref}
+  \setmainfont{Roboto} % Use Roboto as the main font
+\else
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage[pdftex]{hyperref}
+  \usepackage{roboto}  % Use Roboto package for non-XeTeX/LuaTeX compilers
+  \renewcommand{\familydefault}{\sfdefault} % Set default font family to sans-serif
+\fi
+\usepackage{anyfontsize}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{pagecolor}
+
+%-------------------------------------------------- SETTINGS HERE --------------------------------------------------
+% Header settings
+\def \firstname {Cem Philipp}
+\def \lastname {Freimoser}
+\def \subtitle {}
+
+\def \linkedinicon {\faLinkedin}
+\def \linkedinlink {https://linkedin.com/in/dwight-schrute/}
+\def \linkedintext {/dwight-schrute}
+
+\def \homeicon {\faHome}
+\def \hometext {Gmunderstr. 18b, 81379 Munich}
+
+\def \phoneicon {\faPhone}
+\def \phonetext {+49 173 5140074}
+
+\def \emailicon {\faEnvelope}
+\def \emaillink {mailto:freimoser.c@gmail.com}
+\def \emailtext {freimoser.c@gmail.com}
+
+\def \githubicon {\faGithub}
+\def \githublink {https://github.com/cfreemoser}
+\def \githubtext {cfreemoser}
+
+\def \linkedinicon {\faLinkedin}
+\def \linkedlink {https://www.linkedin.com/in/cem-philipp-freimoser-3b885011b/}
+\def \linkedintext {Connect on LinkedIn}
+
+\def \headertype {\doublecol} % \singlecol or \doublecol
+
+% Misc settings
+\def \entryspacing {-0pt}
+
+\def \bulletstyle {\faAngleRight}
+
+% Define Colors
+\definecolor{primary}{HTML}{63A002}          % Primary color
+\definecolor{secondary}{HTML}{85976E}        % Secondary color
+\definecolor{links}{HTML}{1565C0}            % Links color
+\definecolor{accent}{HTML}{263238}           % Accent color 
+\definecolor{surface}{HTML}{e2e3d8}          % Surface color
+\definecolor{teriary}{HTML}{004B48}          % Surface color
+
+% Set the page background color to surface
+\pagecolor{surface}
+
+%------------------------------------------------------------------------------------------------------------------- 
+
+% Defines to make listing easier
+\def \phone {\phonetext \hspace{3pt}\phoneicon}
+\def \email {\href{\emaillink}{\emailtext} \hspace{3pt}\emailicon}
+\def \github {\href{\githublink}{\githubtext} \hspace{3pt}\githubicon}
+\def \home {\hometext \hspace{3pt}\homeicon}
+\def \linkedin {\href{\linkedlink}{\linkedintext} \hspace{3pt}\linkedinicon}
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.55in}
+\addtolength{\evensidemargin}{-0.55in}
+\addtolength{\textwidth}{1.1in}
+\addtolength{\topmargin}{-0.6in}
+\addtolength{\textheight}{1.1in}
+
+% Define the link colours
+\hypersetup{
+    colorlinks=true,
+    urlcolor=links,
+}
+
+% Set the margin alignment 
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+%-------------------------
+% Custom commands
+
+% Sections
+\renewcommand{\section}[2]{\vspace{5pt}
+  \colorbox{teriary}{\color{white}\raggedbottom\normalsize\textbf{{#1}{\hspace{7pt}#2}}}
+}
+
+% Entry start and end, for spacing
+\newcommand{\resumeEntryStart}{\begin{itemize}[leftmargin=2.5mm]}
+\newcommand{\resumeEntryEnd}{\end{itemize}\vspace{\entryspacing}}
+
+% Itemized list for the bullet points under an entry, if necessary
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=4.5mm]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+
+% Resume item
+\renewcommand{\labelitemii}{\bulletstyle}
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+% Entry with title, subheading, date(s), and location
+\newcommand{\resumeEntryTSDL}[4]{
+  \vspace{-1pt}\item[]
+    \begin{tabularx}{0.97\textwidth}{X@{\hspace{60pt}}r}
+      \textbf{\color{primary}#1} & {\color{accent}\small#2} \\
+      \textit{\color{accent}\small#3} & \textit{\color{accent}\small#4} \\
+    \end{tabularx}\vspace{-6pt}
+}
+
+% Define a new command for the description block
+\newcommand{\resumeEntryDesc}[1]{
+  \vspace{-1pt}\item[] 
+  \small{
+    \begin{tabularx}{0.97\textwidth}{X}
+      #1
+    \end{tabularx}
+  }
+  \vspace{-6pt}
+}
+
+% Entry with title and date(s)
+\newcommand{\resumeEntryTD}[2]{
+  \vspace{-1pt}\item[]
+    \begin{tabularx}{0.97\textwidth}{X@{\hspace{60pt}}r}
+      \textbf{\color{primary}#1} & {\color{accent}\small#2} \\
+    \end{tabularx}\vspace{-6pt}
+}
+
+% Entry for special (skills)
+\newcommand{\resumeEntryS}[2]{
+  \item[]\small{
+    \textbf{\color{primary}#1 }{ #2 \vspace{-6pt}}
+  }
+}
+
+% Double column header
+\newcommand{\doublecol}[6]{
+  \begin{tabularx}{\textwidth}{Xr}
+    {
+      \begin{tabular}[c]{l}
+        \fontsize{35}{45}\selectfont{\color{primary}{{\textbf{\fullname}}}} \\
+        {\textit{\subtitle}} % You could add a subtitle here
+      \end{tabular}
+    } & {
+      \begin{tabular}[c]{l@{\hspace{1.5em}}l}
+        {\small#4} & {\small#1} \\
+        {\small#5} & {\small#2} \\
+        {\small#6} & {\small#3}
+      \end{tabular}
+    }
+  \end{tabularx}
+}
+
+% Single column header
+\newcommand{\singlecol}[6]{
+  \begin{tabularx}{\textwidth}{Xr}
+    {
+      \begin{tabular}[b]{l}
+        \fontsize{35}{45}\selectfont{\color{primary}{{\textbf{\fullname}}}} \\
+        {\textit{\subtitle}} % You could add a subtitle here
+      \end{tabular}
+    } & {
+      \begin{tabular}[c]{l}
+        {\small#1} \\
+        {\small#2} \\
+        {\small#3} \\
+        {\small#4} \\
+        {\small#5} \\
+        {\small#6}
+      \end{tabular}
+    }
+  \end{tabularx}
+}
+
+\begin{document}
+%-------------------------------------------------- BEGIN HERE --------------------------------------------------
+
+%---------------------------------------------------- HEADER ----------------------------------------------------
+
+% Using multicol to create a row with two columns
+\vspace{1cm} 
+\begin{multicols}{2}
+  % Left column
+  \vspace{2cm}
+  \textbf{\fontsize{28}{36}\selectfont \firstname}\\
+  \textbf{\fontsize{28}{36}\selectfont  \lastname}
+  
+  \columnbreak
+  
+  % Right column
+  \vspace{2cm}
+  \begin{flushright}
+      \begin{tabular}{rl}
+          \home \\
+          \phone \\
+          \email \\
+          \github \\
+          \linkedin \\
+
+       \end{tabular}
+  \end{flushright}
+\end{multicols}
+\vspace{1cm}
+%-------------------------------------------------- EXPERIENCE --------------------------------------------------
+\section{\faBusinessTime}{Experience}
+
+  \resumeEntryStart
+    \resumeEntryTSDL
+      {EGYM AG}{December 2021 -- Present}
+      {Team Lead Software}{Munich, Germany}
+    \resumeEntryDesc{Leading a cross-functional team of 11 developers responsible for the software on EGYM Smart Strength machines and its cloud integration. Focused on optimizing team processes to improve development flow efficiency and removing obstacles to allow developers to concentrate on their core tasks. Scaled the team from 5 to 11 members while ensuring continuous support for individual career development. Continues to actively contribute as a developer, writing Go and Java code to support backend development and ensuring robust, scalable solutions}
+    \resumeItemListStart
+    \resumeItem {Taking leadership and people responsibility for the team, ensuring alignment with company goals}
+    \resumeItem {Supporting the company’s objectives by enabling the team to grow organically while maintaining and nurturing a positive team culture}
+    \resumeItem {Providing guidance and support to developers to help them grow in their careers and progress through the career ladder}
+    \resumeItem {Breaking down silos within the team and fostering collaboration across different teams and departments}
+    \resumeItem {Working closely with product management to develop the next generation of features, ensuring they align with business needs and technical capabilities}
+    \resumeItemListEnd
+  \resumeEntryEnd
+
+  \resumeEntryStart
+    \resumeEntryTSDL
+      {EGYM AG}{December 2020 -- December 2021}
+      {Software Engineer}{Munich, Germany}
+  \resumeEntryEnd
+
+  \resumeEntryStart
+    \resumeEntryTSDL
+      {Zühlke Engineering GmbH}{January 2020 -- December 2020}
+      {Advanced Software Engineer}{Munich, Germany}
+    \resumeEntryDesc{Building a cloud platform for a customer, providing a secure runtime and infrastructure for a dozen of software development teams to deploy, test, and run containerized workflows. The platform features included continuous deployment pipelines, Blue/Green cluster deployment, container runtime, logging, monitoring and tracing solutions, as well as databases, message brokers, and caches}
+    \resumeItemListStart
+        \resumeItem {Working in a distributed team across 4 countries}
+        \resumeItem {Designing a Blue/Green cluster architecture to optimize cluster uptime}
+        \resumeItem {Setting up continuous deployment using AzureDevOps in conjunction with some Go, PowerShell scripting}
+        \resumeItem {Provisioning Microsoft Azure resources using infrastructure-as-code tools like Pulumi and Terraform}
+        \resumeItem {Administrating highly complex multi-tenant Kubernetes clusters. Enforcing custom security policies by implementing admission controller webhooks in Go}
+        \resumeItem {Securing in-cluster communication, as well as improving service observability using Istio service mesh}
+        \resumeItem {Building a cluster logging solution using Elasticsearch, Fluentd, FluentBit, Kibana, Jeager}
+        \resumeItem {Building a monitoring and alerting solution using Prometheus, Grafana, Karma and custom exporters}
+    \resumeItemListEnd
+  \resumeEntryEnd
+
+  \resumeEntryStart
+    \resumeEntryTSDL
+      {Zühlke Engineering GmbH}{October 2018 -- December 2020}
+      {Professional Software Engineer}{Munich, Germany}
+  \resumeEntryEnd
+
+  \resumeEntryStart
+    \resumeEntryTSDL
+    {1\&1 Internet SE}{October 2015 -- October 2018}
+    {Dual Student}{Munich, Germany}
+    \resumeEntryDesc{Development of a UWP app for the largest email provider in Germany. Ensuring the highest software quality by following Clean Code and Clean architecture. Furthermore, evaluation of synchronization strategies for cloud storage to end devices as well as the development of stream processors to process millions of login events}
+    \resumeItemListStart
+      \resumeItem {Developing sophisticated UIs with UWP and composition API}
+      \resumeItem {Integration Personal assistants in an existing app by applying clean architecture for integrating voice commands}
+      \resumeItem {Processing Millions of events with an actor-based stream processor using Akka and Scala}
+      \resumeItem {Evaluating Monitoring solutions like Prometheus and influx DB}
+    \resumeItemListEnd
+  \resumeEntryEnd
+
+%-------------------------------------------------- EDUCATION --------------------------------------------------
+\section{\faGraduationCap}{Education}
+
+\resumeEntryStart
+  \resumeEntryTSDL
+    {Baden-Württemberg Cooperative State University Karlsruhe}{2015 -- 2018}
+    {Computer Science, B. Sc.}{Karlsruhe, Germany}
+\resumeEntryEnd
+
+%-------------------------------------------------- PROJECTS --------------------------------------------------
+\section{\faCommentDots}{Languages}
+
+\resumeEntryStart
+  \resumeEntryS{German} {native speaker}
+  \resumeEntryS{English} {fluent in speaking and writing}
+  \resumeEntryS{Dutch} {very beginner}
+\resumeEntryEnd
+
+
+%-------------------------------------------------- PROGRAMMING SKILLS --------------------------------------------------
+\section{\faIcon{cogs}}{Skills}
+\resumeEntryStart
+  \resumeEntryS{Programming Languages} {Go, Java, C\#, Scala, Dart}
+  \resumeEntryS{Technology and Tools} {GCP, GitHub, Azure, Docker, Kubernetes, Istio, Pulumi, Terraform, Prometheus, Grafana, Elasticsearch, Fluentd, Kibana, Jaeger, RabbitMQ, UWP, Android}
+  \resumeEntryS{Practices and Patterns} {Kanban, Agile, Clean Architecture, Dependency Injection, SCRUM, Distributed Development, Continuous Integration}
+\resumeEntryEnd
+\end{document}
