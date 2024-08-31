@@ -17,10 +17,10 @@ jobs:
       - name: Build and run dev container task
         uses: devcontainers/ci@v0.3
         with:
-          runCmd: pdflatex cv.tex
+          runCmd: pdflatex cv_cem_philipp_freimoser.tex
       
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v2
         with:
           name: cv
-          path: cv.pdf # Specify the file path to the generated PDF
+          path: cv_cem_philipp_freimoser.pdf # Specify the file path to the generated PDF
